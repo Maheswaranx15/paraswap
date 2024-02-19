@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity 0.8.0;
 
 import "./IAugustusSwapper.sol";
 import "./IParaswap.sol";
@@ -16,5 +16,7 @@ contract ParaswapIntegration {
 
     function swap(Utils.SellData calldata data) external {
         uint256 receivedAmount = paraswapContract.multiSwap(data);
+        augustusSwapperContract.transferTokens(data.destToken, recipient, receivedAmount);
+
     }
 }
