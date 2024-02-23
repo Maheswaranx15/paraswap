@@ -23,6 +23,7 @@ contract ParaswapIntegration {
     constructor(address _augustusSwapperAddress, address _paraswapAddress) {
         augustusSwapperContract = IAugustusSwapper(_augustusSwapperAddress);
         paraswapContract = IParaswap(_paraswapAddress);
+        paraswapAddress = _paraswapAddress;
     }
 
    function swap(Utils.SellData calldata _data) external nonReentrant {
