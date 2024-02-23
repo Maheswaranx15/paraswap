@@ -10,8 +10,15 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract ParaswapIntegration {
+
+    using SafeMath for uint256;
+    using SafeERC20 for IERC20;
     IAugustusSwapper augustusSwapperContract;
     IParaswap paraswapContract;
+    address public BTCT_ADDR;
+    mapping(address => mapping(address => uint256)) public tokens;
+    address public paraswapAddress;
+
 
     constructor(address _augustusSwapperAddress, address _paraswapAddress) {
         augustusSwapperContract = IAugustusSwapper(_augustusSwapperAddress);
