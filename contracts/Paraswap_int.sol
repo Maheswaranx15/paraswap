@@ -1,9 +1,13 @@
+//0x0e0588e725a1A57074a97a4aA2553EF0AfbCfd44
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.0;
 
 import "./IAugustusSwapper.sol";
 import "./IParaswap.sol";
 import "./lib/Utils.sol";
+import "./SafeERC20.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract ParaswapIntegration {
     IAugustusSwapper augustusSwapperContract;
@@ -14,7 +18,7 @@ contract ParaswapIntegration {
         paraswapContract = IParaswap(_paraswapAddress);
     }
 
-   function swap(Utils.SimpleData calldata _data) external nonReentrant {
+   function swap(Utils.SellData calldata _data) external nonReentrant {
         require(_data.beneficiary == msg.sender, "beneficiary != msg.sender");
         require(
             tokens[_data.fromToken][_data.beneficiary] >= _data.fromAmount,
@@ -24,12 +28,12 @@ contract ParaswapIntegration {
             _data.beneficiary
         ].sub(_data.fromAmount);
         
-        _doSimpleSwap(_data); //no received amount, tokens to go user's wallet
+        _doSimpleSwap(_data); 
     }
 
     /// @dev _doSimpleSwap - performs paraswap transaction - BALANCE & TOKEN CHECKS MUST OCCUR BEFORE CALLING THIS
     /// @param _data data from API call that is ready to be sent to paraswap interface
-    function _doSimpleSwap(Utils.SimpleData calldata _data) internal {
+    function _doSimpleSwap(Utils.SellData calldata _data) internal {
         //address proxy = IAugustusSwapper(paraswapAddress).getTokenTransferProxy();
 
         IERC20(_data.fromToken).safeIncreaseAllowance(
@@ -42,5 +46,4 @@ contract ParaswapIntegration {
 
 
 }
-
 
