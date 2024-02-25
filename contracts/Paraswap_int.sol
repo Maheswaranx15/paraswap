@@ -1,6 +1,6 @@
 //0x0e0588e725a1A57074a97a4aA2553EF0AfbCfd44
-// SPDX-License-Identifier: MIT
-pragma solidity 0.8.0;
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
 
 import "./IAugustusSwapper.sol";
 import "./IParaswap.sol";

@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: AGPL-3.0
-pragma solidity >=0.6.0 <=0.8.9;
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
 
 /**
  * @dev Collection of functions related to the address type
